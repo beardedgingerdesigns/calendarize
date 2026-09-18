@@ -132,7 +132,7 @@ class ICS extends Component
 	 * @param  integer $timestamp Timestamp to be transformed
 	 * @return string
 	 */
-	private function _dateToCal(DateTime $dateTime = null)
+	private function _dateToCal(?DateTime $dateTime = null)
 	{
         if (!$dateTime) {
             $dateTime = new DateTime('now');
