@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0 - 2026-09-18
+
+Craft 5 support, maintained in the [Bearded Ginger Designs fork](https://github.com/beardedgingerdesigns/calendarize) (upstream `unionco/calendarize` remains on Craft 4).
+
+Versioning rationale: the plugin bumps its major version for each supported Craft major (2.0.0 for Craft 4), so the Craft 5 port is 3.0.0. It is also a breaking change in itself: Craft 4 and PHP < 8.2 are no longer supported.
+
+### Changed
+- Requires `craftcms/cms` ^5.0 and PHP ^8.2.
+- Ported the field type to the Craft 5 field API: `dbType()` returns `null` (recurrence data lives in the plugin's own `calendarize` table, not in `elements_sites.content`), `phpType()`, and `queryCondition()` replace the Craft 4 content-column and `modifyElementsQuery()` hooks.
+- Field input HTML moved to Craft 5's `inputHtml()` signature; input JS arguments are now JSON-encoded.
+
+### Data compatibility
+- The `craft_calendarize` table shape is unchanged from 2.0.0, so existing recurrence rows load without a migration; `schemaVersion` stays `1.3.0`.
+- Every public method and Twig variable (`getOccurrencesBetween`, `next`, `upcoming`, `after`, `between`, `readable`, ICS URLs) is unchanged.
+
 ## 1.2.16 - 2019-08-29
 ### Updated
 - Updating wording around the repeat frequency closes [#28](https://github.com/unionco/calendarize/issues/28)

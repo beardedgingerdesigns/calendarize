@@ -65,7 +65,7 @@ class Calendarize extends Plugin
     /**
      * @var string
      */
-    public ?string $changelogUrl = "https://raw.githubusercontent.com/unionco/calendarize/master/CHANGELOG.md";
+    public ?string $changelogUrl = "https://raw.githubusercontent.com/beardedgingerdesigns/calendarize/master/CHANGELOG.md";
 
     /**
      * @var string

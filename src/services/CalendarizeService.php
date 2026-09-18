@@ -290,10 +290,20 @@ class CalendarizeService extends Component
      *
      * @return mixed
      */
-    public function getField(CalendarizeField $field, ElementInterface $owner = null, $value)
+    public function getField(CalendarizeField $field, ?ElementInterface $owner = null, $value = null)
     {
         if (!$owner) {
             return;
+        }
+
+        if ($value instanceof CalendarizeModel) {
+            return $value;
+        }
+
+        // Craft also normalizes values supplied by console commands, drafts,
+        // revisions, and programmatic setFieldValue() calls.
+        if (is_array($value)) {
+            return new CalendarizeModel($owner, $value);
         }
 
         /** @var Element $owner */
@@ -305,13 +315,7 @@ class CalendarizeService extends Component
             ]
         );
 
-        if (
-            !\Craft::$app->request->isConsoleRequest
-            && \Craft::$app->request->isPost
-            && $value
-        ) {
-            $model = new CalendarizeModel($owner, $value);
-        } else if ($record) {
+        if ($record) {
             $model = new CalendarizeModel($owner, $record->getAttributes());
         } else {
             $model = new CalendarizeModel($owner);
